@@ -24,24 +24,32 @@ public class ui {
     }
 
     static void startingMenu() {
-    System.out.println("""
-                ╔════════════════════════════════════════════════╗
-                ║  [1] CREATE AN ACCOUNT                         ║
-                ║  [2] LOG IN AN ACCOUNT (CARDLESS TRANSACTION)  ║ 
-                ║  [3] EXIT APPLICATION                          ║
-                ╚════════════════════════════════════════════════╝
-                """);
+        System.out.println("""
+            ╔════════════════════════════════════════════════╗
+            ║  [1] CREATE AN ACCOUNT                         ║
+            ║  [2] LOG IN AN ACCOUNT (CARDLESS TRANSACTION)  ║ 
+            ║  [3] EXIT APPLICATION                          ║
+            ╚════════════════════════════════════════════════╝
+                    """);
     }
 
     static void AccountMenu() {
-    System.out.println("""
-                ╔══════════════════════════════════════════════════════╗
-                ║  [1] BALANCE INQUIRY                                 ║
-                ║  [2] WITHDRAWAL                                      ║ 
-                ║  [3] DEPOSIT                                         ║
-                ║  [4] WIRE TRANSFER / ELECTRONIC FUND TRANSFER (EFT)  ║
-                ║  [5]EXIT APPLICATION                                 ║
-                ╚══════════════════════════════════════════════════════╝
-                """);
+        System.out.println("""
+            ╔══════════════════════════════════════════════════════╗
+            ║  [1] BALANCE INQUIRY                                 ║
+            ║  [2] WITHDRAWAL                                      ║ 
+            ║  [3] DEPOSIT                                         ║
+            ║  [4] WIRE TRANSFER / ELECTRONIC FUND TRANSFER (EFT)  ║
+            ║  [5]EXIT APPLICATION                                 ║
+            ╚══════════════════════════════════════════════════════╝
+                    """);
+    }
+
+    static void exitMenu() {
+        System.out.println("""
+            ╔════════════════════════════════════════════════╗
+            ║        THANK YOU FOR BANKING WITH US!          ║
+            ╚════════════════════════════════════════════════╝
+                    """);
     }
 }
