@@ -10,15 +10,15 @@ public class Main {
 
         //Variable Declaration and Initialization
         boolean isRunning = true;
-        int choice;
+        int userChoice;
         ui.appBanner();
         ui.startingMenu();
         
         while (isRunning) {
             System.out.print("CREATE OR CHOOSE AN EXISTING ACCOUNT>> ");
-            choice = getValidChoice();
+            userChoice = getValidUserChoice();
 
-            switch (choice) {
+            switch (userChoice) {
                 case 1 -> accountHandler.accountCreation();
                 case 2 -> accountHandler.accountLogin();
                 case 3 -> {
@@ -30,19 +30,20 @@ public class Main {
     }
 
     /**
-     * Prompts the user to enter a valid menu choice between 1 and 3.
+     * Prompts the user to enter a valid menu userChoice between 1 and 3.
      * Handles invalid input and ensures the returned value is within the valid range.
+     * Additionally, this uses exception handling if the input is not an integer.
      *
-     * @return a valid integer choice between 1 and 3
+     * @return a valid integer userChoice between 1 and 3
      */
-    private static int getValidChoice() {
-        int choice;
+    private static int getValidUserChoice() {
+        int userChoice;
         while (true) {
             try {
-                choice = sc.nextInt();
+                userChoice = sc.nextInt();
                 sc.nextLine(); // Consume the leftover newline character after reading integer input
-                if (choice >= 1 && choice <= 3) {
-                    return choice;
+                if (userChoice >= 1 && userChoice <= 3) {
+                    return userChoice;
                 } else {
                     System.out.print("INVALID INPUT! CHOOSE THE CHOICES BETWEEN 1 AND 3>> ");
                 }
