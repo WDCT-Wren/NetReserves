@@ -10,11 +10,12 @@
  */
 
 public class UI {
+    /**
+     * This method will act as the app banner and the logo for the program.
+     * (Text Banner was generated from manytools.org)
+     */
     public void appBanner() {
-        /**
-         * This method will act as the app banner and the logo for the program.
-         * (Text Banner was generated from manytools.org)
-         */
+    
         System.out.println("""
             ╔════════════════════════════════════════════════════════════════════════════════════════════════════╗
             ║    ███╗   ██╗███████╗████████╗██████╗ ███████╗███████╗███████╗██████╗ ██╗   ██╗███████╗███████╗    ║
@@ -29,42 +30,48 @@ public class UI {
             ╚════════════════════════════════════════════════════════════════════════════════════════════════════╝
                 """);    
     }
-
-    public void startingMenu() {
-        /**
-         * This method will act and showcase the starting menu for the user to choose whether they would like to create a new account, 
-         * or log in an already existing account through cardless transaction (By using their log in credentials).
-         */
-        System.out.println("""
-            ╔════════════════════════════════════════════════╗
-            ║  [1] CREATE AN ACCOUNT                         ║
-            ║  [2] LOG IN AN ACCOUNT (CARDLESS TRANSACTION)  ║ 
-            ║  [3] EXIT APPLICATION                          ║
-            ╚════════════════════════════════════════════════╝
+    /**
+     * This method will act and showcase the starting menu for the user to choose whether they would like to create a new account, 
+     * or log in an already existing account through cardless transaction (By using their log in credentials).
+     */
+    public void loginHeader() {
+        System.out.print("""
+            ╔══════════════════════════════════════════════════╗
+            ║              LOG IN TO YOUR ACCOUNT              ║
+            ╚══════════════════════════════════════════════════╝
                     """);
     }
 
-    public void AccountMenu() {
-        /**
-         * This method will act and showcase the starting menu for the user to choose their desired transaction in their account.
-         * This may be in the form of:
-         * 
-         * Balance inquiry
-         * Widthrawal
-         * Deposit, or
-         * wire transfer to send money to another already existing account in the system
-         */
-        System.out.println("""
+    public void loginSuccessful() {
+        System.out.print("""
+            ╔══════════════════════════════════════════════════╗
+            ║                LOG IN SUCCESSFUL!                ║    
+            ╚══════════════════════════════════════════════════╝
+                    """);
+    }
+
+    /**
+     * This method will act and showcase the starting menu for the user to choose their desired transaction in their account.
+     * This may be in the form of:
+     * 
+     * Balance inquiry
+     * Widthrawal
+     * Deposit, or
+     * wire transfer to send money to another already existing account in the system
+     */
+    public void transactionList() {
+        System.out.print("""
             ╔══════════════════════════════════════════════════════╗
             ║  [1] BALANCE INQUIRY                                 ║
             ║  [2] WITHDRAWAL                                      ║ 
             ║  [3] DEPOSIT                                         ║
             ║  [4] WIRE TRANSFER / ELECTRONIC FUND TRANSFER (EFT)  ║
-            ║  [5] EXIT APPLICATION                                ║
+            ║  [5] LOG OUT OF CURRENT ACCOUNT                      ║
+            ║  [6] EXIT APPLICATION                                ║
             ╚══════════════════════════════════════════════════════╝
                     """);
     }
-
+    
     public void exitMenu() {
         System.out.println("""
             ╔══════════════════════════════════════════════╗
