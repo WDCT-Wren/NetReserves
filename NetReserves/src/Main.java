@@ -13,7 +13,6 @@ public class Main {
     //Declaration of global variable
     private static boolean isRunning;
     public static void main(String[] args) {
-
         //Variable Declaration and Initialization
         String enteredID;
         String enteredPassword;
