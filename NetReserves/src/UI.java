@@ -1,3 +1,5 @@
+import java.net.Socket;
+
 /** 
  * This will be the ui class for project EduCash to provide a clear User interface when using the program
  * 
@@ -81,5 +83,13 @@ public class UI {
             ║        THANK YOU FOR BANKING WITH US!        ║
             ╚══════════════════════════════════════════════╝
                     """);
+    }
+
+    public void balance() {
+        System.out.print("""
+            ╔══════════════════════════════════════════════╗
+            ║               CURRENT BALANCE:               ║
+            ╚══════════════════════════════════════════════╝
+            >> """);
     }
 }

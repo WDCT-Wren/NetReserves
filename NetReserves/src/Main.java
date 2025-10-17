@@ -6,9 +6,8 @@ public class Main {
 
     //Class objects instantations
     static UI display = new UI();
-    static LoginHandler loginHandler = new LoginHandler();
+    static Authenticator authenticator = new Authenticator();
     static TransactionsHandler transactionsHandler = new TransactionsHandler();
-    static UserData userData = new UserData();
     
     //Declaration of global variable
     private static boolean isRunning;
@@ -26,7 +25,8 @@ public class Main {
             enteredID = sc.nextLine();
             System.out.print("ENTER PASSWORD>> ");
             enteredPassword = sc.nextLine();
-            if (loginHandler.validateAccountNumber(enteredID) && loginHandler.validateAccountPassword(enteredPassword)) {
+            if (authenticator.findAccountNumber(enteredID).equals(enteredID) 
+            && authenticator.validateAccountPassword(enteredPassword)) {
                 logInAttempt = 0;
                 display.loginSuccessful();
                 transactionsMenuHandler(true);
@@ -89,16 +89,18 @@ public class Main {
      * @return isRunning to either be true or false depending on what the user enters: If the user enters 5, it simply logs the account out returning isRunning to still be true; if the user etners 6, it returns isRunning to false, closing the system. 
      */
     private static boolean transactionsMenuHandler(boolean isLoggedIn) {
+        int accountIndex = authenticator.getCurrentAccountIndex();
+        Object[][] userData = (Object[][]) authenticator.getUserData();
         while(isLoggedIn) {
             display.transactionList();
             System.out.print("SELECT YOUR TRANSACTION>> ");
             int userChoice = getValidUserChoice();
 
             switch (userChoice) {
-                case 1 -> transactionsHandler.balanceInquiry();
-                case 2 -> transactionsHandler.withdrawal();
-                case 3 -> transactionsHandler.deposit();
-                case 4 -> transactionsHandler.fundTransfer();
+                case 1 -> transactionsHandler.balanceInquiry(accountIndex, userData);
+                case 2 -> transactionsHandler.withdrawal(accountIndex, userData);
+                case 3 -> transactionsHandler.deposit(accountIndex, userData);
+                case 4 -> transactionsHandler.fundTransfer(accountIndex, userData);
                 case 5 -> {
                     System.out.println("LOGGED OUT OF CURRENT ACCOUNT");
                     isLoggedIn = false;
