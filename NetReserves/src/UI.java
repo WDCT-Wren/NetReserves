@@ -1,5 +1,3 @@
-import java.net.Socket;
-
 /** 
  * This will be the ui class for project EduCash to provide a clear User interface when using the program
  * 
@@ -76,6 +74,40 @@ public class UI {
             ╚══════════════════════════════════════════════════════╝
                     """);
     }
+
+    public void balance() {
+        System.out.print("""
+            ╔══════════════════════════════════════════════╗
+            ║               CURRENT BALANCE:               ║
+            ╚══════════════════════════════════════════════╝
+            >>""");
+    }
+    
+    public void successfulDeposit() {
+        System.out.print("""
+            ╔══════════════════════════════════════════════╗
+            ║     DEPOSIT SUCCESSFUL! CURRENT BALANCE:     ║   
+            ╚══════════════════════════════════════════════╝
+            >>""");
+    }
+    
+    public void successfulWithdrawal() {
+        System.out.print("""
+            ╔═══════════════════════════════════════════════╗
+            ║    WITHDRAWAL SUCCESSFUL! CURRENT BALANCE:    ║   
+            ╚═══════════════════════════════════════════════╝
+            >>""");
+    }
+
+    public void successfulTransferer(double transfererBalance, double recipientBalance) {
+        System.out.printf("""
+            ╔══════════════════════════════════════════════╗
+            ║    TRANSFER SUCCESSFUL! CURRENT BALANCES:    ║   
+            ╚══════════════════════════════════════════════╝
+            TRANSFERER BALANCE: %f
+            RECIPIENT BALANCE: %f \n"""
+            , transfererBalance, recipientBalance);
+    }
     
     public void exitMenu() {
         System.out.println("""
@@ -83,13 +115,5 @@ public class UI {
             ║        THANK YOU FOR BANKING WITH US!        ║
             ╚══════════════════════════════════════════════╝
                     """);
-    }
-
-    public void balance() {
-        System.out.print("""
-            ╔══════════════════════════════════════════════╗
-            ║               CURRENT BALANCE:               ║
-            ╚══════════════════════════════════════════════╝
-            >> """);
     }
 }

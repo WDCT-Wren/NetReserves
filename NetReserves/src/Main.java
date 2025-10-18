@@ -13,7 +13,7 @@ public class Main {
     private static boolean isRunning;
     public static void main(String[] args) {
         //Variable Declaration and Initialization
-        String enteredID;
+        String enteredAccountNumber;
         String enteredPassword;
         int logInAttempt = 0;
         isRunning = true;
@@ -22,42 +22,24 @@ public class Main {
         while (isRunning) {
             display.loginHeader();
             System.out.print("ENTER ACCOUNT NUMBER>> ");
-            enteredID = sc.nextLine();
+            enteredAccountNumber = sc.nextLine();
             System.out.print("ENTER PASSWORD>> ");
             enteredPassword = sc.nextLine();
-            if (authenticator.findAccountNumber(enteredID).equals(enteredID) 
-            && authenticator.validateAccountPassword(enteredPassword)) {
-                logInAttempt = 0;
-                display.loginSuccessful();
-                transactionsMenuHandler(true);
-            }
-            else {
+            String foundAccount = authenticator.findAccountNumber(enteredAccountNumber);
+
+            if (foundAccount == null) {
+                //Account does not exist in the database -> log in failed
                 failedLoginAttemptCounter(++logInAttempt);
             }
-        }
-    }
-
-    /**
-     * Prompts the user to enter a valid menu userChoice between 1 and 3.
-     * Handles invalid input and ensures the returned value is within the valid range.
-     * Additionally, this uses exception handling if the input is not an integer.
-     *
-     * @return a valid integer userChoice between 1 and 6
-     */
-    private static int getValidUserChoice() {
-        int userChoice;
-        while (true) {
-            try {
-                userChoice = sc.nextInt();
-                sc.nextLine(); // Consume the leftover newline character after reading integer input
-                if (userChoice >= 1 && userChoice <= 6) {
-                    return userChoice;
-                } else {
-                    System.out.print("INVALID INPUT! CHOOSE BETWEEN 1 AND 6>> ");
-                }
-            } catch (InputMismatchException e) {
-                System.out.print("INVALID INPUT! MUST BE A NUMBER BETWEEN 1 AND 6>> ");
-                sc.nextLine(); // clear the invalid input
+            else if (foundAccount.equals(enteredAccountNumber) && authenticator.validateAccountPassword(enteredPassword)) {
+                //Account exists AND the password entered is correct -> log in successful
+                logInAttempt = 0;
+                display.loginSuccessful();
+                transactionsMenu(true);
+            }
+            else {
+                //Account DOES exist BUT the password is wrong -> log in failed
+                failedLoginAttemptCounter(++logInAttempt);
             }
         }
     }
@@ -88,14 +70,27 @@ public class Main {
      * @param isLoggedIn
      * @return isRunning to either be true or false depending on what the user enters: If the user enters 5, it simply logs the account out returning isRunning to still be true; if the user etners 6, it returns isRunning to false, closing the system. 
      */
-    private static boolean transactionsMenuHandler(boolean isLoggedIn) {
+    public static boolean transactionsMenu(boolean isLoggedIn) {
         int accountIndex = authenticator.getCurrentAccountIndex();
         Object[][] userData = (Object[][]) authenticator.getUserData();
+        int userChoice = 0;
         while(isLoggedIn) {
             display.transactionList();
-            System.out.print("SELECT YOUR TRANSACTION>> ");
-            int userChoice = getValidUserChoice();
-
+            while (true) {
+                try {
+                    System.out.print("SELECT YOUR TRANSACTION>> ");
+                    userChoice = sc.nextInt();
+                    if (userChoice >= 1 && userChoice <= 6) {
+                        break;
+                    } else {
+                        System.out.print("INVALID INPUT! CHOOSE BETWEEN 1 AND 6>> ");
+                        sc.nextLine();
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("INVALID INPUT! MUST BE A NUMBER BETWEEN 1 AND 6!");
+                    sc.nextLine();
+                }
+            }
             switch (userChoice) {
                 case 1 -> transactionsHandler.balanceInquiry(accountIndex, userData);
                 case 2 -> transactionsHandler.withdrawal(accountIndex, userData);

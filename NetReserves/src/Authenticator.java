@@ -26,10 +26,10 @@ public class Authenticator {
      */
     private Object[][] userData =   {
         //accNum    //accPass   //balance
-        {"04771", "XiaoJie1234!",   0},
-        {"04354", "BaoBaoLong234!", 0},
-        {"04233", "DoeJohn123!",    0},
-        {"04533", "JohnPork234!",      0},
+        {"04771", "XiaoJie1234!",   0.00},
+        {"04354", "BaoBaoLong234!", 0.00},
+        {"04233", "DoeJohn123!",    0.00},
+        {"04533", "JohnPork234!",   0.00},
     };
 
     //Getter method for the userData dataset - returns the 2D array for transaction processing
@@ -45,14 +45,18 @@ public class Authenticator {
      * @return The user's account number as a string
      */
     public String findAccountNumber(String enteredNumber) {
+        //traverses the contents of user data until it reaches the end of the array.
         for (int i = 0; i < userData.length; i++) {
+            //checks if there is a matching account number with any of the account numbers in the system. 
             if (enteredNumber.equals(userData[i][0])) {
+                //If there exists an account with what the user inputted, it is then returned in the main method.
                 return accountNumber = (String) userData[i][0];
             }
         }
         accountNumber = null;
         return null;
     }
+    
     /**
      * This method has the same purpose as the findAccountNumber(), although instead of returning the account number, it returns the row index of the found account. 
      * @return the row index of the found userdata from the account number
@@ -67,17 +71,20 @@ public class Authenticator {
     }
 
     /**
-     * This method will handle the matching of the corresponding password of the matched account.
+     * This method will handle the validation of the corresponding password of the matched account.
      * 
      * @param enteredPassword
      * @return either true or false depending if the password matches the password of the chosen account.
      */
     public boolean validateAccountPassword(String enteredPassword) {
+        //If there are no account found, then it will be false automatically.
         if (accountNumber == null) return false; 
-
+        
         for (int i = 0; i < userData.length; i++) {
+            //Traversing the account numbers again with the matching entered account number. 
             if (accountNumber.equals(userData[i][0])) {
-                return enteredPassword.equals(userData[i][1]);
+                //If the program finds a match in the database
+                return enteredPassword.equals(userData[i][1]); //Checks if the corresponding account row's password matches with the entered passowrd. 
             }
         }
         return false;
