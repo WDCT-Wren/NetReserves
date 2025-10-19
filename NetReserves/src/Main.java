@@ -54,7 +54,7 @@ public class Main {
         int maxAttempts = 3;
 
         if (logInAttempt < maxAttempts) {
-            System.out.println("INVALID USER CREDENTIALS! PLEASE TRY AGAIN (ATTEMPTS LEFT: " + (maxAttempts - logInAttempt) + ")>> ");
+            System.out.println("INVALID USER CREDENTIALS! PLEASE TRY AGAIN (ATTEMPTS LEFT: " + (maxAttempts - logInAttempt) + ")");
         }
         else {
             System.out.println("TOO MANY FAILED ATTEMPTS! ACCOUNT IS NOW LOCKED.");
@@ -80,15 +80,18 @@ public class Main {
                 try {
                     System.out.print("SELECT YOUR TRANSACTION>> ");
                     userChoice = sc.nextInt();
-                    if (userChoice >= 1 && userChoice <= 6) {
+                    if (userChoice >= 1 || userChoice <= 6) {
                         break;
-                    } else {
+                    } 
+                    else {
                         System.out.print("INVALID INPUT! CHOOSE BETWEEN 1 AND 6>> ");
                         sc.nextLine();
+                        continue;
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("INVALID INPUT! MUST BE A NUMBER BETWEEN 1 AND 6!");
                     sc.nextLine();
+                    continue;
                 }
             }
             switch (userChoice) {
@@ -99,6 +102,7 @@ public class Main {
                 case 5 -> {
                     System.out.println("LOGGED OUT OF CURRENT ACCOUNT");
                     isLoggedIn = false;
+                    sc.nextLine();
                 }
                 case 6 -> {
                     display.exitMenu();

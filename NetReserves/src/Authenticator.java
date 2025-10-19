@@ -1,15 +1,4 @@
-/**
-     * This method will handle the matching of the entered number an existing account number. If the entered account number matches with an existing account, 
-     * the account will be called where it will then proceed to check the password if it mathces.
-     * 
-     *  @param enteredNumber 
-     *  @return either true or false depending if the userID matches the password of an account.
-     * 
-     */
 public class Authenticator {    
-    private String accountNumber; 
-    //made to initialize the accountenumber string to be returned and compared to the entered one in main.
-
     /**
      * This will be handling user data the ATM system. This class will already contain pre-existing user data, which will be called when a user logs in an existing account.
      * We don't aim on making a more dynamic system that allows users to register accounts, so we will be using 2d arrays as a way to store the user data, where rows are accounts,
@@ -31,7 +20,9 @@ public class Authenticator {
         {"04233", "DoeJohn123!",    0.00},
         {"04533", "JohnPork234!",   0.00},
     };
-
+    //made to initialize the accountenumber string to be returned and compared to the entered one in main.
+    private String accountNumber; 
+    
     //Getter method for the userData dataset - returns the 2D array for transaction processing
     public Object[][] getUserData() {
         return userData;
@@ -64,6 +55,15 @@ public class Authenticator {
     public int getCurrentAccountIndex() {
         for (int i = 0; i < userData.length; i++) {
             if (accountNumber.equals(userData[i][0])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int getRecipientAccountIndex(String recipientNumber) {
+        for (int i = 0; i < userData.length; i++) {
+            if (recipientNumber.equals(userData[i][0])) {
                 return i;
             }
         }

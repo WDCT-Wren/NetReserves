@@ -99,14 +99,13 @@ public class UI {
             >>""");
     }
 
-    public void successfulTransferer(double transfererBalance, double recipientBalance) {
+    public void successfulTransfer() {
         System.out.printf("""
-            ╔══════════════════════════════════════════════╗
-            ║    TRANSFER SUCCESSFUL! CURRENT BALANCES:    ║   
-            ╚══════════════════════════════════════════════╝
-            TRANSFERER BALANCE: %f
-            RECIPIENT BALANCE: %f \n"""
-            , transfererBalance, recipientBalance);
+            ╔═════════════════════════════════════════════╗
+            ║    TRANSFER SUCCESSFUL! CURRENT BALANCE:    ║   
+            ╚═════════════════════════════════════════════╝
+            >>"""
+            );
     }
     
     public void exitMenu() {
