@@ -61,9 +61,9 @@ public class Authenticator {
         return -1;
     }
 
-    public int getRecipientAccountIndex(String recipientNumber) {
+    public int getRecipientAccountIndex(String enteredRecipientNumber) {
         for (int i = 0; i < userData.length; i++) {
-            if (recipientNumber.equals(userData[i][0])) {
+            if (enteredRecipientNumber.equals(userData[i][0])) {
                 return i;
             }
         }

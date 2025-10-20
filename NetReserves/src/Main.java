@@ -98,7 +98,7 @@ public class Main {
                 case 1 -> transactionsHandler.balanceInquiry(accountIndex, userData);
                 case 2 -> transactionsHandler.withdrawal(accountIndex, userData);
                 case 3 -> transactionsHandler.deposit(accountIndex, userData);
-                case 4 -> transactionsHandler.fundTransfer(accountIndex, userData);
+                case 4 -> transactionsHandler.fundTransfer(accountIndex, userData); 
                 case 5 -> {
                     System.out.println("LOGGED OUT OF CURRENT ACCOUNT");
                     isLoggedIn = false;

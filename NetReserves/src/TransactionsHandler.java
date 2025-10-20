@@ -56,7 +56,7 @@ public class TransactionsHandler {
                     sc.nextLine();
                     continue;
                 }
-                else if (confirmTransaction()) {
+                else if (confirmTransaction(true)) {
                     //If the user confirms their transaction -> successful deposit and will be doing the following
                     userData[accountIndex][2] = balance + depositedAmount; //increase the balance in the database according to the amoutn deposited
 
@@ -99,7 +99,7 @@ public class TransactionsHandler {
                     sc.nextLine();
                     continue;
                 }
-                else if (withdrawnAmount < balance && confirmTransaction()) {
+                else if (withdrawnAmount < balance && confirmTransaction(true)) {
                     //There is sufficient balance AND the user confirms their transaction -> successful withdrawal, and will be doing the following:
                     userData[accountIndex][2] = balance - withdrawnAmount; //Reduce the balance in the database according to the amount withdrawn by the user.
 
@@ -112,12 +112,12 @@ public class TransactionsHandler {
                     //If your balance is insufficient -> unsuccessful withdrawal, and will be prompt to enter a new amount. 
                     System.out.println("INSUFFICIENT BALANCE!");
                     sc.nextLine();
-                    if (!confirmTransaction()) Main.transactionsMenu(true);
+                    if (!confirmTransaction(false)) validAmount = true;
                     continue;
                 }
                 else {
                     //If you cancel your transaction, then you will be brought back to the transaction menu.
-                    Main.transactionsMenu(true);
+                    validAmount = true;
                 }
             }
             catch (InputMismatchException e) {
@@ -138,27 +138,32 @@ public class TransactionsHandler {
     public void fundTransfer(int accountIndex, Object[][] userData) {
         double senderBalance = (double) userData[accountIndex][2];
         boolean validAmount = false;
-        String recipientNumber = findRecipient();
         int recipientIndex;
+        sc.nextLine();
         while (!validAmount) {
-            recipientIndex = authenticator.getRecipientAccountIndex(recipientNumber);
-            //Prevents sender to inputting their own account number
-            if (recipientNumber.equals((String)userData[accountIndex][0])) {
-                System.out.println("INVALID RECIPIENT NUMBER! CANNOT SEND FUNDS TO THE SAME ACCOUNT NUMBER AS THE SENDER!");
-                sc.nextLine();
-                continue;
-            }
-            else if (recipientIndex == -1) {
-                System.out.println("RECIPIENT ACCOUNT NOT FOUND! PLEASE ENTER A VALID ACCOUNT NUMBER.");
+            System.out.print("ENTER RECIPIENT ACCOUNT NUMBER>> ");
+            String enteredRecipientNumber = sc.nextLine();
+            String recipientNumber = authenticator.findAccountNumber(enteredRecipientNumber);
+            if (recipientNumber == null) { 
+                System.out.println("RECIPIENT ACCOUNT NOT FOUND! PLEASE ENTER A VALID AND EXISTING ACCOUNT NUMBER.");
                 continue;
             }
             else {
-                transferProcess(recipientIndex, accountIndex, userData, senderBalance);
-                validAmount = true;
+                recipientIndex = authenticator.getRecipientAccountIndex(recipientNumber);
+                //Prevents sender to inputting their own account number
+                if (recipientNumber.equals((String)userData[accountIndex][0])) {
+                    System.out.println("INVALID RECIPIENT NUMBER! CANNOT SEND FUNDS TO THE SAME ACCOUNT NUMBER AS THE SENDER!");
+                    continue;
+                }
+                else {
+                    transferProcess(recipientIndex, accountIndex, userData, senderBalance);
+                    validAmount = true;
+                }
             }
         }
     }
 
+    //Properly working, DO NOT TOUCH AS OF NOW!
     public void transferProcess(int recipientIndex, int accountIndex, Object[][] userData, double senderBalance) {
         double recipientBalance = (double) userData[recipientIndex][2];
         boolean validAmount = false;
@@ -168,7 +173,12 @@ public class TransactionsHandler {
             //validate sender balance
             System.out.print("PLEASE ENTER THE AMOUNT TO BE SENT TO THE ACCOUNT>> ");
             transferAmmount = sc.nextDouble();
-            if (transferAmmount < senderBalance && confirmTransaction()) {
+
+            if (transferAmmount < 0) {
+                System.out.println("INVALID AMOUNT! PLEASE ENTER A POSITIVE, NON-ZERO AMOUNT!");
+                sc.nextLine();
+            }
+            else if (transferAmmount <= senderBalance && confirmTransaction(true)) {
                 //There is sufficient balance AND the user confirms their transaction -> successful withdrawal, and will be doing the following:
                 
                 //update both accounts
@@ -178,44 +188,32 @@ public class TransactionsHandler {
                 //Display successfull withdrawal UI with the current balance after the transaction
                 display.successfulTransfer();
                 System.out.println(" $" + userData[accountIndex][2]);
-                
                 validAmount = true;
             } 
             else if (transferAmmount > senderBalance) {
                 //If your balance is insufficient -> unsuccessful withdrawal, and will be prompt to enter a new amount. 
                 System.out.println("INSUFFICIENT BALANCE!");
                 sc.nextLine();
-                if (!confirmTransaction()) Main.transactionsMenu(true);
+                if (!confirmTransaction(false)) validAmount = true;
             }
             else {
                 //If you cancel your transaction, then you will be brought back to the transaction menu.
-                Main.transactionsMenu(true);
+                validAmount = true;
             }
         }
     }
 
-    public String findRecipient() {
-        String enteredRecipientNumber;
-        String recipientNumber; 
-        while (true) {
-            System.out.print("ENTER RECIPIENT ACCOUNT NUMBER>> ");
-            enteredRecipientNumber = sc.nextLine();
-            recipientNumber = authenticator.findAccountNumber(enteredRecipientNumber);
-            if (recipientNumber == null) { 
-                System.out.println("ACCOUNT NOT FOUND! TRY AGAIN!");
-                continue;
-            }
-            else {
-                return recipientNumber;
-            }
-        }
-    }
-
-    public boolean confirmTransaction() {
+    public boolean confirmTransaction(boolean isConfirmation) {
+        int confirmation = 0;
+        if (isConfirmation) {
         System.out.print("CONFIRM/CANCEL TRANSACTION (1 -> CONFIRM | 2 -> CANCEL)>> ");
-        int confirmation = sc.nextInt();
+        confirmation = sc.nextInt();
+        }
+        else {
+            System.out.print("RETRY/CANCEL TRANSACTION (1 -> RETRY | 2 -> CANCEL)>> ");
+            confirmation = sc.nextInt();
+        }
         boolean validInput = false;
-
         while (!validInput) {
             try {
                 if (confirmation == 1) {
