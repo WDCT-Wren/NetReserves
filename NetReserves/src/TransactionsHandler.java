@@ -139,7 +139,6 @@ public class TransactionsHandler {
         double senderBalance = (double) userData[accountIndex][2];
         boolean validAmount = false;
         int recipientIndex;
-        sc.nextLine();
         while (!validAmount) {
             System.out.print("ENTER RECIPIENT ACCOUNT NUMBER>> ");
             String enteredRecipientNumber = sc.nextLine();
@@ -217,6 +216,7 @@ public class TransactionsHandler {
         while (!validInput) {
             try {
                 if (confirmation == 1) {
+                    sc.nextLine();
                     validInput = true;
                 }
                 else if (confirmation == 2) {

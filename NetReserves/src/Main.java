@@ -76,40 +76,74 @@ public class Main {
         int userChoice = 0;
         while(isLoggedIn) {
             display.transactionList();
-            while (true) {
-                try {
-                    System.out.print("SELECT YOUR TRANSACTION>> ");
-                    userChoice = sc.nextInt();
-                    if (userChoice >= 1 || userChoice <= 6) {
-                        break;
-                    } 
-                    else {
+            try {
+                System.out.print("SELECT YOUR TRANSACTION>> ");
+                userChoice = sc.nextInt();
+                switch (userChoice) {
+                    case 1 -> transactionsHandler.balanceInquiry(accountIndex, userData);
+                    case 2 -> transactionsHandler.withdrawal(accountIndex, userData);
+                    case 3 -> transactionsHandler.deposit(accountIndex, userData);
+                    case 4 ->  {
+                        sc.nextLine();
+                        transactionsHandler.fundTransfer(accountIndex, userData); 
+                    }
+                    case 5 -> {
+                        System.out.println("LOGGED OUT OF CURRENT ACCOUNT");
+                        sc.nextLine();
+                        return isLoggedIn = false;
+                    }
+                    case 6 -> {
+                        display.exitMenu();
+                        sc.close();
+                        return isRunning = false;
+                    }
+                    default ->  {
                         System.out.print("INVALID INPUT! CHOOSE BETWEEN 1 AND 6>> ");
                         sc.nextLine();
                         continue;
                     }
-                } catch (InputMismatchException e) {
-                    System.out.println("INVALID INPUT! MUST BE A NUMBER BETWEEN 1 AND 6!");
-                    sc.nextLine();
-                    continue;
                 }
+            } catch (InputMismatchException e) {
+                System.out.println("INVALID INPUT! MUST BE A NUMBER BETWEEN 1 AND 6!");
+                sc.nextLine();
+                continue;
             }
-            switch (userChoice) {
-                case 1 -> transactionsHandler.balanceInquiry(accountIndex, userData);
-                case 2 -> transactionsHandler.withdrawal(accountIndex, userData);
-                case 3 -> transactionsHandler.deposit(accountIndex, userData);
-                case 4 -> transactionsHandler.fundTransfer(accountIndex, userData); 
-                case 5 -> {
-                    System.out.println("LOGGED OUT OF CURRENT ACCOUNT");
-                    isLoggedIn = false;
-                    sc.nextLine();
-                }
-                case 6 -> {
-                    display.exitMenu();
-                    return isRunning = false;
-                }
+            isLoggedIn = postTransaction(true);
+        }
+    return isRunning;
+    }   
+    
+    public static boolean postTransaction(boolean isLoggedIn) {
+        int userChoice;
+        display.postTransactionSection();
+        while (true) {
+            try {
+                System.out.print("SELECT YOUR TRANSACTION>> ");
+                userChoice = sc.nextInt();
+                switch (userChoice) {
+            case 1 -> transactionsMenu(true);
+            case 2 -> {
+                System.out.println("LOGGED OUT OF CURRENT ACCOUNT");
+                sc.nextLine();
+                return isLoggedIn = false;
+            }
+            case 3 -> {
+                display.exitMenu();
+                sc.close();
+                return isRunning = false;
+            }
+            default -> {
+                System.out.println("INVALID INPUT! MUST BE A NUMBER BETWEEN 1 AND 3!");
+                sc.nextLine();
+                continue;
             }
         }
-        return isRunning = true;
+            } catch (InputMismatchException e) {
+                System.out.println("INVALID INPUT! MUST BE A NUMBER BETWEEN 1 AND 3!");
+                sc.nextLine();
+                continue;
+            }
+        return isRunning = false;
+        }
     }
 }
