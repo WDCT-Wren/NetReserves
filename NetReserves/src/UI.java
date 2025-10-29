@@ -1,12 +1,19 @@
 /** 
  * This will be the ui class for project EduCash to provide a clear User interface when using the program
  * 
- * (This was updated as of October 9, 2025)
- * 
  * This class shall contain the following UI sections as of now:
- *  @category An app banner (made from manytools.org),
- *  @category A starting menu, and
- *  @category An account menu for in account transactions (eg. Balance inquiry, withdrawal, deposit, and wire transfer).
+ * <ul>
+ *  <li><b>App Banner</b></li>
+ *  <li><b>Log in Header</b></li>
+ *  <li><b>Log in Successful Banner</b></li>
+ *  <li><b>List of available Transactions</b></li>
+ *  <li><b>Balance Banner</b></li>
+ *  <li><b>Successful Deposit Banner, with the new current balance</b></li>
+ *  <li><b>Successful Withdrawal Banner, with the new current balance</b></li>
+ *  <li><b>Successful fund transfer, with the new current balance</b></li>
+ *  <li><b>List of available actions after transacting</b></li>
+ *  <li><b>Exit Banner</b></li>
+ * </ul>
  */
 
 public class UI {
@@ -51,15 +58,6 @@ public class UI {
                     """);
     }
 
-    /**
-     * This method will act and showcase the starting menu for the user to choose their desired transaction in their account.
-     * This may be in the form of:
-     * 
-     * Balance inquiry
-     * Widthrawal
-     * Deposit, or
-     * wire transfer to send money to another already existing account in the system
-     */
     public void transactionList() {
         System.out.print("""
             ╔══════════════════════════════════════════════════════╗

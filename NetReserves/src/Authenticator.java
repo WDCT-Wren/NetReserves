@@ -1,17 +1,27 @@
-public class Authenticator {    
+/**
+ * This is a class primarily made for storing and returning user data that is premade by the proponents.
+ * This class will perform the following:
+ * <ul>
+ *  <li><b>Find Account Number</b> - Find and determine if there is a corresponding account number based on what the user inputs; as well as return its index.</li>
+ *  <li><b>Find Recipient Number</b> - Find out if there is a corresponding account that the user inputs as the recipient of their fund transfer; and return the account's index from the 2d array.</li>
+ *  <li><b>Validate Account Password</b> - Will find the password associated to the valid inputted account number and return if it is either valid of not.</li>
+ * </ul>
+ * This Class will store and return the following data:
+ * @category accountNumber - The user's account number.
+ * @category accountPassword - The user's set password.
+ * @category userBalance - The user's current balance.
+ */
+
+public class Authenticator {   
     /**
      * This will be handling user data the ATM system. This class will already contain pre-existing user data, which will be called when a user logs in an existing account.
      * We don't aim on making a more dynamic system that allows users to register accounts, so we will be using 2d arrays as a way to store the user data, where rows are accounts,
      * while columns are the following: 
-     * 
-     * column [0] = Account Number;
-     * column [1] = Account Password; and
-     * column [2] = Account Balance.
-     * 
-     * This System will store and return the following data:
-     * @category accountNumber - The user's account number.
-     * @category accountPassword - The user's set password.
-     * @category userBalance - The user's current balance.
+     * <ul>
+     *  <li><b>column [0] = Account Number</b></li>
+     *  <li><b>column [1] = Account Password</b></li>
+     *  <li><b>column [2] = Account Balance</b></li>
+     * </ul>
      */
     private Object[][] userData =   {
         //accNum    //accPass   //balance
@@ -61,6 +71,11 @@ public class Authenticator {
         return -1;
     }
 
+    /**
+     * This method has the purpose of returning the index of the recipient's account's index from the 2d array.
+     * @param enteredRecipientNumber
+     * @return The row index of the found recipient data from the inputted recipient number.
+     */
     public int getRecipientAccountIndex(String enteredRecipientNumber) {
         for (int i = 0; i < userData.length; i++) {
             if (enteredRecipientNumber.equals(userData[i][0])) {

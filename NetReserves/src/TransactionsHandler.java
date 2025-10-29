@@ -162,7 +162,6 @@ public class TransactionsHandler {
         }
     }
 
-    //Properly working, DO NOT TOUCH AS OF NOW!
     public void transferProcess(int recipientIndex, int accountIndex, Object[][] userData, double senderBalance) {
         double recipientBalance = (double) userData[recipientIndex][2];
         boolean validAmount = false;
