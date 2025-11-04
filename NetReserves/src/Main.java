@@ -65,7 +65,9 @@ public class Main {
     }
 
     /**
-     * This method focuses on what transaction the user wishes to proceed to after logging in. This gives the user 6 choices:
+     * This method focuses on what transaction the user wishes to proceed to after logging in. 
+     * <br><br>
+     * This gives the user 6 choices:
      * <ul>
      *  <li><b>Balance Inquiry</b> - Where the user wishes to view their current balance.</li>
      *  <li><b>Withdrawal</b> - Where the user wishes to withdraw an amount of money from their account.</li>
@@ -122,7 +124,9 @@ public class Main {
     }   
     
     /**
-     * This method focuses on what the user wish to do after their transaction. This gives the user 3 choices:
+     * This method focuses on what the user wish to do after their transaction. 
+     * <br><br>
+     * This gives the user 3 choices:
      * <ul>
      *  <li><b>Do Another Transaction</b> - Where the user wishes to do another transaction with the same account.</li>
      *  <li><b>Log Out of Current Account</b> - Where the user wishes to log out of their account and possibly do antoher transaction on another account.</li>

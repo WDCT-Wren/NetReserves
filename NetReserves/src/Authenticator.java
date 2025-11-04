@@ -1,5 +1,6 @@
 /**
  * This is a class primarily made for storing and returning user data that is premade by the proponents.
+ * <br><br>
  * This class will perform the following:
  * <ul>
  *  <li><b>Find Account Number</b> - Find and determine if there is a corresponding account number based on what the user inputs; as well as return its index.</li>
@@ -16,6 +17,7 @@ public class Authenticator {
     /**
      * This will be handling user data the ATM system. This class will already contain pre-existing user data, which will be called when a user logs in an existing account.
      * We don't aim on making a more dynamic system that allows users to register accounts, so we will be using 2d arrays as a way to store the user data, where rows are accounts,
+     * <br><br>
      * while columns are the following: 
      * <ul>
      *  <li><b>column [0] = Account Number</b></li>

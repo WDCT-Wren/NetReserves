@@ -8,7 +8,7 @@ import java.util.Scanner;
  * 
  * Design Decision: Instead of creating a new Authenticator instance, we receive the account
  * index and userData array as parameters to avoid duplicate searching and maintain clean architecture.
- * 
+ * <br><br>
  * This class handles the following transaction types:
  * <ul>
  *  <li>Balance inquiry - Display current account balance</li>
@@ -129,9 +129,14 @@ public class TransactionsHandler {
     }
 
     /**
-     * Handles electronic fund transfer between accounts.
-     * Future implementation will: find recipient account, validate funds, transfer amount
-     * 
+     * Handles finding the recipient account number and passing it down to the transferProcess method.
+     * <br><br>
+     * This method will: 
+     * <ul>
+     *  <li>find recipient account</li> 
+     *  <li>validate funds</li>
+     *  <li>and then transfer amount</li>
+     * </ul>
      * @param accountIndex The row index of the sender's account in the userData array
      * @param userData The 2D array containing all account data for both sender and recipient updates
      */
@@ -162,6 +167,19 @@ public class TransactionsHandler {
         }
     }
 
+    /**
+     * Handles fund transfer validation, and the final step of transferring the fund from sender to recipient. 
+     * <br><br>
+     * This method will: 
+     * <ul>
+     *  <li>Validate the amount to be sent.</li>
+     *  <li>Uses the recipient's row index from the database to send the funds.</li>
+     * </ul> 
+     * @param recipientIndex The row index of the recipient
+     * @param accountIndex The row index of the sender
+     * @param userData The database containing the account of the sender and the recipient
+     * @param senderBalance The current balance of the user
+     */
     public void transferProcess(int recipientIndex, int accountIndex, Object[][] userData, double senderBalance) {
         double recipientBalance = (double) userData[recipientIndex][2];
         boolean validAmount = false;
@@ -201,6 +219,18 @@ public class TransactionsHandler {
         }
     }
 
+    /**
+     * Handles the user's confirmation of their transaction.
+     * <br><br>
+     * This method will: 
+     * <ul>
+     *  <li>Ask the user if they wish to confirm or go through with their transaction</li>
+     *  <li>If the user confirms by entering 1, the given transaction will go through</li>
+     *  <li>If the user cancels by entering 2, the given transaction will be cancelled</li>
+     * </ul>
+     * @param isConfirmation
+     * @return Either True or False corresponding to the user wanting to confirm or cancel their transaction.
+     */
     public boolean confirmTransaction(boolean isConfirmation) {
         int confirmation = 0;
         if (isConfirmation) {

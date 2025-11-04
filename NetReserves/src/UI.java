@@ -1,7 +1,7 @@
 /** 
  * This will be the ui class for project EduCash to provide a clear User interface when using the program
- * 
- * This class shall contain the following UI sections as of now:
+ * <br><br>
+ * This class shall contain the following UI sections:
  * <ul>
  *  <li><b>App Banner</b></li>
  *  <li><b>Log in Header</b></li>
