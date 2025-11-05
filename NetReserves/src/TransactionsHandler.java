@@ -186,36 +186,42 @@ public class TransactionsHandler {
         double transferAmmount;
 
         while (!validAmount) {
-            //validate sender balance
-            System.out.print("PLEASE ENTER THE AMOUNT TO BE SENT TO THE ACCOUNT>> ");
-            transferAmmount = sc.nextDouble();
+            try {
+                //validate sender balance
+                System.out.print("PLEASE ENTER THE AMOUNT TO BE SENT TO THE ACCOUNT>> ");
+                transferAmmount = sc.nextDouble();
 
-            if (transferAmmount < 0) {
-                System.out.println("INVALID AMOUNT! PLEASE ENTER A POSITIVE, NON-ZERO AMOUNT!");
+                if (transferAmmount <= 0) {
+                    System.out.println("INVALID AMOUNT! PLEASE ENTER A POSITIVE, NON-ZERO AMOUNT!");
+                    sc.nextLine();
+                }
+                else if (transferAmmount <= senderBalance && confirmTransaction(true)) {
+                    //There is sufficient balance AND the user confirms their transaction -> successful withdrawal, and will be doing the following:
+                    
+                    //update both accounts
+                    userData[accountIndex][2] = senderBalance - transferAmmount;
+                    userData[recipientIndex][2] = recipientBalance + transferAmmount;
+
+                    //Display successfull withdrawal UI with the current balance after the transaction
+                    display.successfulTransfer();
+                    System.out.println(" $" + userData[accountIndex][2]);
+                    validAmount = true;
+                } 
+                else if (transferAmmount > senderBalance) {
+                    //If your balance is insufficient -> unsuccessful withdrawal, and will be prompt to enter a new amount. 
+                    System.out.println("INSUFFICIENT BALANCE!");
+                    sc.nextLine();
+                    if (!confirmTransaction(false)) validAmount = true;
+                }
+                else {
+                    //If you cancel your transaction, then you will be brought back to the transaction menu.
+                    validAmount = true;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("INVALID AMOUNT! PLEASE ENTER A POSITIVE, NON-ZERO NUMERIC VALUE!");
                 sc.nextLine();
             }
-            else if (transferAmmount <= senderBalance && confirmTransaction(true)) {
-                //There is sufficient balance AND the user confirms their transaction -> successful withdrawal, and will be doing the following:
-                
-                //update both accounts
-                userData[accountIndex][2] = senderBalance - transferAmmount;
-                userData[recipientIndex][2] = recipientBalance + transferAmmount;
-
-                //Display successfull withdrawal UI with the current balance after the transaction
-                display.successfulTransfer();
-                System.out.println(" $" + userData[accountIndex][2]);
-                validAmount = true;
-            } 
-            else if (transferAmmount > senderBalance) {
-                //If your balance is insufficient -> unsuccessful withdrawal, and will be prompt to enter a new amount. 
-                System.out.println("INSUFFICIENT BALANCE!");
-                sc.nextLine();
-                if (!confirmTransaction(false)) validAmount = true;
-            }
-            else {
-                //If you cancel your transaction, then you will be brought back to the transaction menu.
-                validAmount = true;
-            }
+            
         }
     }
 
@@ -232,21 +238,24 @@ public class TransactionsHandler {
      * @return Either True or False corresponding to the user wanting to confirm or cancel their transaction.
      */
     public boolean confirmTransaction(boolean isConfirmation) {
-        int confirmation = 0;
-        if (isConfirmation) {
-        System.out.print("CONFIRM/CANCEL TRANSACTION (1 -> CONFIRM | 2 -> CANCEL)>> ");
-        confirmation = sc.nextInt();
-        }
-        else {
-            System.out.print("RETRY/CANCEL TRANSACTION (1 -> RETRY | 2 -> CANCEL)>> ");
-            confirmation = sc.nextInt();
-        }
         boolean validInput = false;
+        
         while (!validInput) {
             try {
+                int confirmation;
+                if (isConfirmation) {
+                    System.out.print("CONFIRM/CANCEL TRANSACTION (1 -> CONFIRM | 2 -> CANCEL)>> ");
+                    confirmation = sc.nextInt();
+                }
+                else {
+                    System.out.print("RETRY/CANCEL TRANSACTION (1 -> RETRY | 2 -> CANCEL)>> ");
+                    confirmation = sc.nextInt();
+                }
+                
                 if (confirmation == 1) {
                     sc.nextLine();
                     validInput = true;
+                    return true;
                 }
                 else if (confirmation == 2) {
                     System.out.println("TRANSACTION CANCELLED");
@@ -256,12 +265,10 @@ public class TransactionsHandler {
                 else {
                     System.out.println("INVALID INPUT! PLEASE ENTER ONLY 1 OR 2!");
                     sc.nextLine();
-                    return false;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("INVALID INPUT! PLEASE ENTER A NUMERIC VALUE!");
                 sc.nextLine();
-                return false;
             }
         }
         return true;
