@@ -141,12 +141,12 @@ public class Main {
                 userChoice = sc.nextInt();
                 switch (userChoice) {
             case 1 -> {
-                return transactionsMenu(true);
+                return true;
             }
             case 2 -> {
                 System.out.println("LOGGED OUT OF CURRENT ACCOUNT");
                 sc.nextLine();
-                return isLoggedIn = false;
+                return false;
             }
             case 3 -> {
                 display.exitMenu();
