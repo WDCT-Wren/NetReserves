@@ -20,8 +20,13 @@ import java.util.Scanner;
 
 public class TransactionsHandler {
     UI display = new UI();
-    Scanner sc = new Scanner(System.in);
+    Scanner sc;
     Authenticator authenticator =  new Authenticator();
+    
+    // Constructor to receive Scanner from Main class
+    public TransactionsHandler(Scanner scanner) {
+        this.sc = scanner;
+    }
 
     /**
      * Handles the displaying of the user's current balance. 
@@ -141,6 +146,9 @@ public class TransactionsHandler {
      * @param userData The 2D array containing all account data for both sender and recipient updates
      */
     public void fundTransfer(int accountIndex, Object[][] userData) {
+        // Clear the buffer from the menu selection
+        sc.nextLine();
+        
         double senderBalance = (double) userData[accountIndex][2];
         boolean validAmount = false;
         int recipientIndex;
