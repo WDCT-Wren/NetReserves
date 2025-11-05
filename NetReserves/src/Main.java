@@ -65,17 +65,7 @@ public class Main {
     }
 
     /**
-     * This method focuses on what transaction the user wishes to proceed to after logging in. 
-     * <br><br>
-     * This gives the user 6 choices:
-     * <ul>
-     *  <li><b>Balance Inquiry</b> - Where the user wishes to view their current balance.</li>
-     *  <li><b>Withdrawal</b> - Where the user wishes to withdraw an amount of money from their account.</li>
-     *  <li><b>Deposit</b> - Where the user wishes to deposit a sum amount of money to their account.</li>
-     *  <li><b>Fund Transfer</b> - Where the user wishes to send a sum amount of money from their account to another account which will be prompted unto them.</li>
-     *  <li><b>Log Out</b> - Where the user simply wishes to log out of their account.</li>
-     *  <li><b>Exit the Program</b> - Where the user simply wishes to exit the program and close the ATM system.</li>
-     * </ul>
+     * Where the main transaction process is being handled 
      * 
      * @param isLoggedIn
      * @return isRunning to either be true or false depending on what the user enters: If the user enters 5, it simply logs the account out returning isRunning to still be true; if the user etners 6, it returns isRunning to false, closing the system. 
@@ -108,7 +98,7 @@ public class Main {
                         return isRunning = false;
                     }
                     default ->  {
-                        System.out.println("INVALID INPUT! CHOOSE BETWEEN 1 AND 6!");
+                        System.out.print("INVALID INPUT! CHOOSE BETWEEN 1 AND 6>> ");
                         sc.nextLine();
                         continue;
                     }
@@ -120,31 +110,20 @@ public class Main {
             }
             isLoggedIn = postTransaction(true);
         }
-    return isRunning;
+    return isRunning = true;
     }   
     
-    /**
-     * This method focuses on what the user wish to do after their transaction. 
-     * <br><br>
-     * This gives the user 3 choices:
-     * <ul>
-     *  <li><b>Do Another Transaction</b> - Where the user wishes to do another transaction with the same account.</li>
-     *  <li><b>Log Out of Current Account</b> - Where the user wishes to log out of their account and possibly do antoher transaction on another account.</li>
-     *  <li><b>Exit the Program</b> - Where the user simply wishes to exit the program and close the ATM system.</li>
-     * </ul>
-     * 
-     * @param isLoggedIn
-     * @return isLoggedIn or isRunning to either be false or true depending on what the user wants to do after the transaction
-     */
     public static boolean postTransaction(boolean isLoggedIn) {
         int userChoice;
         display.postTransactionSection();
         while (true) {
             try {
-                System.out.print("SELECT YOUR TRANSACTION>> ");
+                System.out.print("SELECT YOUR NEXT ACTION>> ");
                 userChoice = sc.nextInt();
                 switch (userChoice) {
-            case 1 -> transactionsMenu(true);
+            case 1 -> {
+                return transactionsMenu(true);
+            }
             case 2 -> {
                 System.out.println("LOGGED OUT OF CURRENT ACCOUNT");
                 sc.nextLine();
@@ -166,7 +145,6 @@ public class Main {
                 sc.nextLine();
                 continue;
             }
-        return isRunning = false;
         }
     }
 }
