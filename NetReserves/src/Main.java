@@ -108,7 +108,7 @@ public class Main {
                         return isRunning = false;
                     }
                     default ->  {
-                        System.out.print("INVALID INPUT! CHOOSE BETWEEN 1 AND 6>> ");
+                        System.out.println("INVALID INPUT! CHOOSE BETWEEN 1 AND 6!");
                         sc.nextLine();
                         continue;
                     }
