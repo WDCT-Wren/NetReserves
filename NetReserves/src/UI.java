@@ -12,7 +12,7 @@
  *  <li><b>Successful Withdrawal Banner, with the new current balance</b></li>
  *  <li><b>Successful fund transfer, with the new current balance</b></li>
  *  <li><b>List of available actions after transacting</b></li>
- *  <li><b>Exit Banner</b></li>
+ *  <li><b>Exit Banner</b>lala</li>
  * </ul>
  */
 
